@@ -5,7 +5,7 @@
 
 pkgname=bacula-bat
 pkgver=5.2.13
-pkgrel=2
+pkgrel=3
 pkgdesc="Bacula Administration Tool Console"
 arch=(i686 x86_64)
 url="http://www.bacula.org"
@@ -37,9 +37,9 @@ package() {
     mkdir -p ${pkgdir}/usr/bin/ ${pkgdir}/usr/lib/ ${pkgdir}/etc/
     mkdir -p ${pkgdir}/usr/share/man/man1/ ${pkgdir}/usr/share/applications/ ${pkgdir}/usr/share/pixmaps/
     install -m755 ${srcdir}/bacula-${pkgver}/src/qt-console/.libs/bat ${pkgdir}/usr/bin/bat
-    install -m755 ${srcdir}/bacula-${pkgver}/src/lib/.libs/*-*.so ${pkgdir}/usr/lib
-    install -m755 ${srcdir}/bacula-${pkgver}/src/findlib/.libs/*-*.so ${pkgdir}/usr/lib
-    install -m644 ${srcdir}/bacula-${pkgver}/src/qt-console/bat.conf ${pkgdir}/etc/bat.conf
+    install -m755 ${srcdir}/bacula-${pkgver}/src/lib/.libs/libbac{,cfg}-${pkgver}.so ${pkgdir}/usr/lib
+    install -m755 ${srcdir}/bacula-${pkgver}/src/findlib/.libs/libbacfind-${pkgver}.so ${pkgdir}/usr/lib
+    install -m644 ${srcdir}/bacula-${pkgver}/src/qt-console/bat.conf ${pkgdir}/etc
     install -m644 ${srcdir}/bacula-${pkgver}/manpages/bat.1 ${pkgdir}/usr/share/man/man1/bat.1
     install -m644 ${srcdir}/bacula-${pkgver}/scripts/bat.desktop ${pkgdir}/usr/share/applications/bat.desktop
     install -m644 ${srcdir}/bacula-${pkgver}/src/qt-console/images/bat_icon.png ${pkgdir}/usr/share/pixmaps/bat_icon.png
