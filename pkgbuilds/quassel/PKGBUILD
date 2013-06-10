@@ -6,22 +6,20 @@
 #########################################
 _aur=1
 
-if [[ "$_aur" == 1 ]]; then
-  pkgbase='%PKGNAME%'
-  pkgname=("$pkgbase")
-  package() {
-    package_$pkgname
-  }
-else
-  pkgbase='quassel'
-  pkgname=('quassel-git'
-           'quassel-light-git'
-           'quassel-client-git'
-           'quassel-client-light-git'
-           'quassel-core-git'
-	   #TODO: quassel-common
-  )
-fi
+pkgbase='%PKGNAME%'
+pkgname=("$pkgbase")
+package() {
+  package_$pkgname
+}
+
+[[ $_aur ]] || pkgbase='quassel'
+[[ $_aur ]] || pkgname=('quassel-git'
+                  'quassel-light-git'
+                  'quassel-client-git'
+                  'quassel-client-light-git'
+                  'quassel-core-git'
+	          #TODO: quassel-common
+         )
 
 pkgver=0.10.pre.13.g8ef0278
 pkgrel=1
@@ -39,14 +37,10 @@ source=(
 )
 md5sums=('SKIP')
 
-if [[ "$_aur" == 1 ]]; then
-  _gitdir="${startdir}/quassel"
-  _srcdir="${startdir}/src/quassel"
-
-else
-  _gitdir="${startdir}/${pkgbase}"
-  _srcdir="${startdir}/src/${pkgbase}"
-fi
+_gitdir="${startdir}/quassel"
+_srcdir="${startdir}/src/quassel"
+[[ $_aur ]] || _gitdir="${startdir}/${pkgbase}"
+[[ $_aur ]] || _srcdir="${startdir}/src/${pkgbase}"
 
 _builddir="${startdir}/build"
 _cmakecache="CMakeCache.txt"
