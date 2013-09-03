@@ -60,9 +60,9 @@ modify_file()
 					pattern="${pattern}[<>=]*[a-z0-9.]*"
 				fi
 				if [ "$context" = "global" ]; then
-					sed -i "s#$pattern#$value#g" "$scriptfile"
+					sed -i "s#${pattern}#${value}#g" "$scriptfile"
 				else
-					sed -i "\#^$context=#,\#)$# s#[[:space:]]*[']*$pattern[']*#$value#g" "$scriptfile"
+					sed -i "\#^${context}=#,\#)$# s#[[:space:]]*[']*${pattern}[']*#$value#g" "$scriptfile"
 				fi
 				;;
 			add)
@@ -70,9 +70,9 @@ modify_file()
 				echo "=> adds $value in $context"
 				# add the full line if it doesn't exist or just the value
 				if grep --quiet "^$context=" "$scriptfile"; then
-					sed -i "s#^$context=(#&$value #1" "$scriptfile"
+					sed -i "s#^${context}=(#&${value} #1" "$scriptfile"
 				else
-					sed -i "\#^build#i$context=($value)\n" "$scriptfile"
+					sed -i "\#^build#i${context}=(${value})\n" "$scriptfile"
 				fi
 				;;
 			*)
