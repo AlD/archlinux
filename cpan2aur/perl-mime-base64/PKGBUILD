@@ -1,0 +1,49 @@
+# Contributor: Anonymous
+# Generator  : CPANPLUS::Dist::Arch 1.25
+
+pkgname='perl-mime-base64'
+pkgver='3.14'
+pkgrel='1'
+pkgdesc="Encode/decode Quoted-Printable"
+arch=('i686' 'x86_64')
+license=('PerlArtistic' 'GPL')
+options=('!emptydirs')
+depends=('perl>=5.006')
+makedepends=()
+url='http://search.cpan.org/dist/MIME-Base64'
+source=('http://search.cpan.org/CPAN/authors/id/G/GA/GAAS/MIME-Base64-3.14.tar.gz')
+md5sums=('66185dd11586d724245ba957db561e75')
+sha512sums=('cc3c011479a0ed27ed38074a9a0288b674b61d85ee6d0d633083d9e86d9702e403f9cc6ac61a214f2b9be0ec060f152f185785b0528a689108e37e417ec1079c')
+_distdir="MIME-Base64-3.14"
+
+build() {
+  ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""                 \
+      PERL_AUTOINSTALL=--skipdeps                            \
+      PERL_MM_OPT="INSTALLDIRS=vendor DESTDIR='$pkgdir'"     \
+      PERL_MB_OPT="--installdirs vendor --destdir '$pkgdir'" \
+      MODULEBUILDRC=/dev/null
+
+    cd "$srcdir/$_distdir"
+    /usr/bin/perl Makefile.PL
+    make
+  )
+}
+
+check() {
+  cd "$srcdir/$_distdir"
+  ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""
+    make test
+  )
+}
+
+package() {
+  cd "$srcdir/$_distdir"
+  make install
+  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
+}
+
+# Local Variables:
+# mode: shell-script
+# sh-basic-offset: 2
+# End:
+# vim:set ts=2 sw=2 et:
