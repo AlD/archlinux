@@ -72,7 +72,7 @@ modify_file()
 				if grep --quiet "^$context=" "$scriptfile"; then
 					sed -i "s#^${context}=(#&${value} #1" "$scriptfile"
 				else
-					sed -i "\#^build#i${context}=(${value})\n" "$scriptfile"
+					sed -i "\#^pkgver#i${context}=(${value})\n" "$scriptfile"
 				fi
 				;;
 			*)
