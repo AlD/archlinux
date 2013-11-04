@@ -8,7 +8,7 @@ _pkgbase="${pkgbase%-bluez4}"
 pkgname="${pkgbase}"
 pkgdesc="A featureful, general-purpose sound server (Supports and depends on bluez4)"
 pkgver=4.0
-pkgrel=3
+pkgrel=4
 arch=(i686 x86_64)
 url="http://www.freedesktop.org/wiki/Software/PulseAudio"
 license=(GPL LGPL)
@@ -52,7 +52,7 @@ package_pulseaudio-bluez4() {
               'lirc-utils: infra-red support'
               'openssl: RAOP support'
               'python2-pyqt: Equalizer GUI (qpaeq)')
-  provides=("$_pkgbase=${pgkver}" "libpulse=${pkgver}")
+  provides=("$_pkgbase=${pkgver}" "libpulse=${pkgver}")
   conflicts=($_pkgbase libpulse)
   backup=(etc/pulse/{daemon.conf,default.pa,system.pa})
   install=pulseaudio.install
