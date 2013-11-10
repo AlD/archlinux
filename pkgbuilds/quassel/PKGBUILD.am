@@ -1,0 +1,61 @@
+# Contributor: Daniel Albers <daniel@lbe.rs>
+
+pkgbase='quassel'
+pkgname=(
+	 @PKGNAME@
+        )
+
+pkgver=0.10-pre-35-gfd74a7e
+pkgrel=1
+url='http://quassel-irc.org'
+license=('GPL')
+arch=('i686' 'x86_64')
+depends=('qt4')
+makedepends=('git' 'cmake')
+provides=('quassel')
+conflicts=('quassel')
+source=(
+  'git+https://github.com/quassel/quassel.git'
+ #'git://git.quassel-irc.org/quassel.git'
+)
+md5sums=('SKIP')
+
+_gitdir="${startdir}/${pkgbase}"
+_srcdir="${startdir}/src/${pkgbase}"
+
+_builddir="${startdir}/build"
+_cmakecache="CMakeCache.txt"
+
+_debug=0
+if [[ $_debug == 0 ]]; then
+  exec 3> /dev/null
+else
+  exec 3>& 1
+fi
+
+foreach package $(BUILDING) 
+
+pkgver() {
+  pushd "$_gitdir" >& 3
+  git describe --always | sed 's/-/./g;'
+  popd >& 3
+}
+
+_prepare_build() {
+  msg 'Preparing build directory...'
+  mkdir -p "$_builddir"
+  pushd "$_builddir" >& 3
+  rm -f "$_cmakecache"
+  popd >& 3
+}
+
+_build() {
+  pushd "$_builddir" >& 3
+
+  msg 'Compiling...'
+  make
+
+  make DESTDIR="$pkgdir" install
+}
+
+pkgdesc='KDE/Qt-based distributed IRC client'

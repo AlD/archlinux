@@ -1,0 +1,20 @@
+package_quassel-light-git() {
+  pkgdesc='Qt-based IRC client (monolithic version)'
+
+  _prepare_build
+
+  pushd "$_builddir" >& 3
+
+  msg 'Configuring build options...'
+  cmake -DWANT_MONO=ON              \
+        -DWANT_CORE=OFF             \
+        -DWANT_QTCLIENT=OFF         \
+        -DWITH_OPENSSL=ON           \
+        -DWITH_KDE=OFF              \
+        -DWITH_WEBKIT=OFF           \
+	-DCMAKE_INSTALL_PREFIX=/usr \
+	"$_srcdir"
+
+  popd >& 3
+  _build
+}

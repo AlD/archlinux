@@ -1,0 +1,20 @@
+package_quassel-core-git() {
+  pkgdesc='KDE/Qt-based distributed IRC client (core only)'
+  provides=('quassel-core')
+  conflicts=('quassel-core')
+
+  _prepare_build
+
+  pushd "$_builddir" >& 3
+
+  msg 'Configuring build options...'
+  cmake -DWANT_MONO=OFF             \
+        -DWANT_CORE=ON              \
+        -DWANT_QTCLIENT=OFF         \
+        -DWITH_OPENSSL=ON           \
+	-DCMAKE_INSTALL_PREFIX=/usr \
+	"$_srcdir"
+
+  popd >& 3
+  _build
+}
