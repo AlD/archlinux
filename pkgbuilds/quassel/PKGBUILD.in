@@ -23,31 +23,24 @@ _srcdir="${startdir}/src/${pkgbase}"
 _builddir="${startdir}/build"
 _cmakecache="CMakeCache.txt"
 
-_debug=0
-if [[ $_debug == 0 ]]; then
-  exec 3> /dev/null
-else
-  exec 3>& 1
-fi
-
 include(`package_'BUILDING`.in')
 
 pkgver() {
-  pushd "$_gitdir" >& 3
+  pushd "$_gitdir" > /dev/null
   git describe --always | sed 's/-/./g;'
-  popd >& 3
+  popd > /dev/null
 }
 
 _prepare_build() {
   msg 'Preparing build directory...'
   mkdir -p "$_builddir"
-  pushd "$_builddir" >& 3
+  pushd "$_builddir" > /dev/null
   rm -f "$_cmakecache"
-  popd >& 3
+  popd > /dev/null
 }
 
 _build() {
-  pushd "$_builddir" >& 3
+  pushd "$_builddir" > /dev/null
 
   msg 'Compiling...'
   make
