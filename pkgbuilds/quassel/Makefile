@@ -5,15 +5,10 @@ PACKAGES = \
 	quassel-client-light-git \
 	quassel-core-git
 
-all: $(PACKAGES) quassel-split
-	m4 PKGBUILD.in > PKGBUILD.am
+all: $(PACKAGES)
 
-$(PACKAGES): BUILDING = $@
 $(PACKAGES):
 	mkdir -p "$@"
-	sed -e "s,@PKGNAME[@],$(@),g" PKGBUILD.in > "$(@)/PKGBUILD"
+	m4 -D BUILDING=$@ PKGBUILD.in > "$@"/PKGBUILD.am
+	sed -e "s,@PKGNAME@,$(@),g" "$(@)/PKGBUILD.am" > "$(@)/PKGBUILD"
 	cd "$(@)" && makepkg -fS
-
-quassel-split: BUILDING = $(PACKAGES)
-quassel-split:
-	echo hallo
