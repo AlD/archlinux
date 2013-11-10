@@ -1,5 +1,6 @@
+pkgdesc='KDE/Qt-based distributed IRC client (core only)'
+
 package_quassel-core-git() {
-  pkgdesc='KDE/Qt-based distributed IRC client (core only)'
   provides=('quassel-core')
   conflicts=('quassel-core')
 

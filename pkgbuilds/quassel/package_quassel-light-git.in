@@ -1,6 +1,6 @@
-package_quassel-light-git() {
-  pkgdesc='Qt-based IRC client (monolithic version)'
+pkgdesc='Qt-based IRC client (monolithic version)'
 
+package_quassel-light-git() {
   _prepare_build
 
   pushd "$_builddir" >& 3

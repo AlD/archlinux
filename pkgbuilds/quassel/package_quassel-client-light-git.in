@@ -1,5 +1,6 @@
+pkgdesc='Qt-based distributed IRC client (client only)'
+
 package_quassel-client-light-git() {
-  pkgdesc='Qt-based distributed IRC client (client only)'
   provides=('quassel-client')
   conflicts=('quassel-client')
 

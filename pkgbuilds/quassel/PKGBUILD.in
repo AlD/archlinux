@@ -47,5 +47,3 @@ _build() {
 
   make DESTDIR="$pkgdir" install
 }
-
-pkgdesc='KDE/Qt-based distributed IRC client'
