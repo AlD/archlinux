@@ -1,7 +1,7 @@
 # Contributor: Daniel Albers <daniel@lbe.rs>
 
 pkgbase=bacula
-pkgname=('bat'
+pkgname=('bacula-bat'
 'bacula-console'
 'bacula-fd'
 'bacula-common'
@@ -49,10 +49,31 @@ make_install() {
     make DESTDIR="$pkgdir" install
 }
 
-files_bacula-common() {
-  files=(
-    
-  )
+_files_bacula-common() {
+  echo \
+    ${pkgdir}/usr/lib/libbac{,cfg,find,py}-${pkgver}.so
+}
+
+_files_bacula-console() {
+:
+}
+
+_files_bacula-fd() {
+  echo \
+    ${pkgdir}/etc/bacula/bacula-fd.conf \
+    ${pkgdir}/usr/bin/bacula-fd \
+    ${pkgdir}/usr/share/man/man8/bacula-fd.8.gz \
+    ${pkgdir}/usr/lib/bpipe-fd.so
+}
+
+_files_bacula-bat() {
+  echo \
+    ${pkgdir}/usr/bin/bat \
+    ${pkgdir}/etc/bacula/bat.conf \
+    ${pkgdir}/usr/share/man/man1/bat.1.gz
+
+    #${pkgdir}/usr/share/applications/bat.desktop \
+    #${pkgdir}/usr/share/pixmaps/bat_icon.png
 }
 
 package_bacula-common() {
@@ -60,37 +81,46 @@ package_bacula-common() {
           'etc/bacula/bacula-fd.conf'
   )
 
-  install -d ${pkgdir}/usr/lib/
-  install -m0755 ${srcdir}/bacula-${pkgver}/src/lib/.libs/libbac{,cfg}-${pkgver}.so ${pkgdir}/usr/lib/
-  install -m0755 ${srcdir}/bacula-${pkgver}/src/findlib/.libs/libbacfind-${pkgver}.so ${pkgdir}/usr/lib/
+  make_install
+
+  rm \
+    $(_files_bacula-console) \
+    $(_files_bacula-fd) \
+    $(_files_bacula-bat)
 }
 
 package_bacula-console() {
   backup=('etc/bacula/bconsole.conf')
   depends=('bacula-common')
 
+  make_install
+
+  rm \
+    $(_files_bacula-common) \
+    $(_files_bacula-fd) \
+    $(_files_bacula-bat)
 }
 
 package_bacula-fd() {
   backup=('etc/bacula/bacula-fd.conf')
   depends=('bacula-common')
 
-  install -D -m0644 ${srcdir}/bacula-${pkgver}/src/filed/bacula-fd.conf ${pkgdir}/etc/bacula/bacula-fd.conf
-  install -D -m0755 ${srcdir}/bacula-${pkgver}/src/filed/.libs/bacula-fd ${pkgdir}/usr/bin/bacula-fd
-  #gzip ${srcdir}/bacula-${pkgver}/manpages/bacula-fd.8
-  install -D -m0644 ${srcdir}/bacula-${pkgver}/manpages/bacula-fd.8.gz ${pkgdir}/usr/share/man/man8/bacula-fd.8.gz
-  install -D -m0644 ${srcdir}/bacula-${pkgver}/src/plugins/fd/.libs/bpipe-fd.so ${pkgdir}/usr/lib/bpipe-fd.so
-  install -D -m0644 ${srcdir}/bacula-${pkgver}/platforms/systemd/bacula-fd.service ${pkgdir}/usr/lib/systemd/system/bacula-fd.service
+  make_install
+
+  rm \
+    $(_files_bacula-console) \
+    $(_files_bacula-common) \
+    $(_files_bacula-bat)
 }
 
-package_bat() {
+package_bacula-bat() {
   backup=('etc/bacula/bat.conf')
   depends=('bacula-common')
 
-  mkdir -p ${pkgdir}/{etc,usr/{bin,lib,share/{man/man1,applications,pixmaps}}}
-  install -D -m0755 ${srcdir}/bacula-${pkgver}/src/qt-console/.libs/bat ${pkgdir}/usr/bin/bat
-  install -D -m0644 ${srcdir}/bacula-${pkgver}/src/qt-console/bat.conf ${pkgdir}/etc
-  install -D -m0644 ${srcdir}/bacula-${pkgver}/manpages/bat.1 ${pkgdir}/usr/share/man/man1/bat.1
-  install -D -m0644 ${srcdir}/bacula-${pkgver}/scripts/bat.desktop ${pkgdir}/usr/share/applications/bat.desktop
-  install -D -m0644 ${srcdir}/bacula-${pkgver}/src/qt-console/images/bat_icon.png ${pkgdir}/usr/share/pixmaps/bat_icon.png
+  make_install
+
+  rm \
+    $(_files_bacula-console) \
+    $(_files_bacula-fd) \
+    $(_files_bacula-common)
 }
