@@ -1,0 +1,10 @@
+package_bacula-common() {
+  pkgdesc=('Bacula - A Network Backup Tool (common files)')
+
+  install -D ${_instdir}/usr/lib/libbac-${pkgver}.so ${pkgdir}/usr/lib/libbac-${pkgver}.so
+  install -D ${_instdir}/usr/lib/libbaccfg-${pkgver}.so ${pkgdir}/usr/lib/libbaccfg-${pkgver}.so
+  install -D ${_instdir}/usr/lib/libbacfind-${pkgver}.so ${pkgdir}/usr/lib/libbacfind-${pkgver}.so
+  install -D ${_instdir}/usr/lib/libbacpy-${pkgver}.so ${pkgdir}/usr/lib/libbacpy-${pkgver}.so
+  install -D ${_instdir}/etc/bacula/scripts/btraceback.gdb ${pkgdir}/etc/bacula/scripts/btraceback.gdb
+  install -D ${_instdir}/usr/bin/btraceback ${pkgdir}/usr/btraceback
+}
