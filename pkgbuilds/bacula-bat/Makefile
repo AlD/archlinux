@@ -10,5 +10,5 @@ $(PACKAGES):
 	mkdir -p "$@"
 	m4 -D BUILDING=$@ PKGBUILD.in > "$@"/PKGBUILD.am
 	sed -e "s,@PKGNAME@,$(@),g" "$(@)/PKGBUILD.am" > "$(@)/PKGBUILD"
-	cp *.patch $(@)/
+	cp *.service *.patch $(@)/
 	cd "$(@)" && makepkg -fS
