@@ -1,0 +1,43 @@
+# Contributor: Daniel Albers <daniel@lbe.rs>
+
+pkgbase=bacula
+pkgname=('@PKGNAME@')
+pkgver=5.2.13
+pkgrel=1
+arch=(i686 x86_64)
+pkgdesc=('Bacula - A Network Backup Tool')
+url="http://www.bacula.org"
+license=('AGPL3')
+depends=('qt4' 'tcp_wrappers')
+makedepends=('tcp_wrappers')
+source=("http://downloads.sourceforge.net/sourceforge/bacula/bacula-${pkgver}.tar.gz"
+        "00-qmake4.patch")
+md5sums=('43417bae0c221afb1f30a581c9e0f2fe'
+         '9ac88867a9ad3a4fe0486a26d0cdb542')
+sha1sums=('30b1eb2efb515138807163d046f675eaa29fad1c'
+          '58a60e8af9b4735c564c7223c2bf0c25803927f3')
+
+_instdir="$PWD/install"
+
+build() {
+    pushd "${srcdir}/bacula-${pkgver}"
+
+    patch -Np3 -i ../00-qmake4.patch || true
+
+    ./configure                              \
+    --enable-bat                             \
+    --enable-client-only                     \
+    --enable-smartalloc                      \
+    --prefix=/usr                            \
+    --sbindir=/usr/bin                       \
+    --sysconfdir=/etc/bacula                 \
+    --with-openssl                           \
+    --with-scriptdir=/etc/bacula/scripts     \
+    --with-systemd=/usr/lib/systemd/system/  \
+    --with-tcp-wrappers                      \
+    --with-x
+    
+    make DESTDIR="$_instdir" install
+}
+
+include(`package_'BUILDING`.in')

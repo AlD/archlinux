@@ -1,0 +1,11 @@
+package_bacula-fd() {
+  pkgdesc=('Bacula - A Network Backup Tool (file daemon)')
+  backup=('etc/bacula/bacula-fd.conf')
+  depends=('bacula-common')
+
+  mkdir -p ${pkgdir}/{etc/bacula,usr/{bin,lib,share/man/man8}}
+  install ${_instdir}/etc/bacula/bacula-fd.conf ${pkgdir}/etc/bacula/bacula-fd.conf
+  install ${_instdir}/usr/bin/bacula-fd ${pkgdir}/usr/bin/bacula-fd
+  install ${_instdir}/usr/share/man/man8/bacula-fd.8.gz ${pkgdir}/usr/share/man/man8/bacula-fd.8.gz
+  install ${_instdir}/usr/lib/bpipe-fd.so ${pkgdir}/usr/lib/bpipe-fd.so
+}
