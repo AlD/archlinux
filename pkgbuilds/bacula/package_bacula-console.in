@@ -1,5 +1,5 @@
 package_bacula-console() {
-  pkgdesc=('Bacula - A Network Backup Tool (management CLI)')
+  pkgdesc='Bacula - A Network Backup Tool (management CLI)'
   backup=('etc/bacula/bconsole.conf')
   depends=('bacula-common')
 

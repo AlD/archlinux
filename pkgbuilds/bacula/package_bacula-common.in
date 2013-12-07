@@ -1,5 +1,5 @@
 package_bacula-common() {
-  pkgdesc=('Bacula - A Network Backup Tool (common files)')
+  pkgdesc='Bacula - A Network Backup Tool (common files)'
 
   install -D ${_instdir}/usr/lib/libbac-${pkgver}.so ${pkgdir}/usr/lib/libbac-${pkgver}.so
   install -D ${_instdir}/usr/lib/libbaccfg-${pkgver}.so ${pkgdir}/usr/lib/libbaccfg-${pkgver}.so

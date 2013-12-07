@@ -1,5 +1,5 @@
 package_bacula-bat() {
-  pkgdesc=('Bacula - A Network Backup Tool (management GUI)')
+  pkgdesc='Bacula - A Network Backup Tool (management GUI)'
   backup=('etc/bacula/bat.conf')
   depends=('bacula-common')
 

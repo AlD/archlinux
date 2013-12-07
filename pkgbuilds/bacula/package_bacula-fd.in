@@ -1,5 +1,5 @@
 package_bacula-fd() {
-  pkgdesc=('Bacula - A Network Backup Tool (file daemon)')
+  pkgdesc='Bacula - A Network Backup Tool (file daemon)'
   backup=('etc/bacula/bacula-fd.conf')
   depends=('bacula-common' 'tcp_wrappers')
 
