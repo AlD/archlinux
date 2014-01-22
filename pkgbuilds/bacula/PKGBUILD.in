@@ -2,7 +2,7 @@
 # bacula-fd.service by Christian Hesse <arch@eworm.de>
 
 pkgbase=bacula
-pkgname=('@PKGNAME@')
+pkgname='@PKGNAME@'
 pkgver=5.2.13
 pkgrel=3
 arch=(i686 x86_64)
