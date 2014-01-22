@@ -11,7 +11,7 @@ url="http://www.bacula.org"
 license=('AGPL3')
 depends=('qt4')
 makedepends=('tcp_wrappers')
-source=("http://downloads.sourceforge.net/sourceforge/bacula/bacula-${pkgver}.tar.gz"
+source=("http://downloads.sourceforge.net/sourceforge/${pkgbase}/${pkgbase}-${pkgver}.tar.gz"
         '00-qmake4.patch'
         'bacula-fd.service')
 
@@ -25,7 +25,7 @@ sha1sums=('30b1eb2efb515138807163d046f675eaa29fad1c'
 _instdir="$PWD/install"
 
 build() {
-    pushd "${srcdir}/bacula-${pkgver}"
+    pushd "${srcdir}/${pkgbase}-${pkgver}"
 
     patch -Np3 -i ${srcdir}/00-qmake4.patch || true
 
@@ -35,9 +35,9 @@ build() {
     --enable-smartalloc                      \
     --prefix=/usr                            \
     --sbindir=/usr/bin                       \
-    --sysconfdir=/etc/bacula                 \
+    --sysconfdir=/etc/${pkgbase}             \
     --with-openssl                           \
-    --with-scriptdir=/etc/bacula/scripts     \
+    --with-scriptdir=/etc/${pkgbase}/scripts     \
     --with-systemd=/usr/lib/systemd/system/  \
     --with-tcp-wrappers                      \
     --with-x
