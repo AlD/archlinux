@@ -1,0 +1,24 @@
+# Author: wain <wain.at.archlinux.fr>
+pkgname=customizepkg-ald
+pkgbase="${pkgname%-*}"
+pkgver=0.2.2
+pkgrel=1
+pkgdesc="A tool to modify automatically PKGBUILD" 
+url="http://www.archlinux.fr/" 
+license="GPL" 
+arch=('any')
+depends=() 
+conflicts=('customizepkg')
+replaces=('customizepkg')
+source=("$pkgbase-$pkgver.src.tar.gz")
+sha512sums=('a8f45453cdf19df75f53552ba0eac9eb9b4bba95827fbb14593ae30cf5c5b5fadc068999c72b5be6dfec52a1049931b3e8f37cd5851efea170521dfc53ca6656')
+
+package() { 
+  	install -D -m 755 "$srcdir"/$pkgbase/$pkgbase "$pkgdir"/usr/bin/$pkgbase 
+  	install -D -m 755 "$srcdir"/$pkgbase/epdfview.example "$pkgdir"/etc/customizepkg.d/epdfview.example 
+  	install -D -m 755 "$srcdir"/$pkgbase/kqemu.example "$pkgdir"/etc/customizepkg.d/kqemu.example 
+  	install -D -m 755 "$srcdir"/$pkgbase/qemu.example "$pkgdir"/etc/customizepkg.d/qemu.example 
+  	install -D -m 755 "$srcdir"/$pkgbase/mplayer.example "$pkgdir"/etc/customizepkg.d/mplayer.example 
+  	install -D -m 755 "$srcdir"/$pkgbase/qt.example "$pkgdir"/etc/customizepkg.d/qt.example 
+  	install -D -m 755 "$srcdir"/$pkgbase/vim.example "$pkgdir"/etc/customizepkg.d/vim.example 
+}
