@@ -1,0 +1,75 @@
+# CPAN Name  : Lingua-EN-Number-IsOrdinal
+# Contributor: [% packager %]
+# Generator  : CPANPLUS::Dist::Arch [% version %]
+
+pkgname='[% pkgname %]'
+pkgver='[% pkgver %]'
+pkgrel='[% pkgrel %]'
+pkgdesc="[% pkgdesc %]"
+arch=([% arch %])
+license=('PerlArtistic' 'GPL')
+options=('!emptydirs')
+depends=([% depends %])
+makedepends=([% makedepends %])
+[% IF checkdepends -%]
+checkdepends=([% checkdepends %])
+[% END -%]
+[% IF conflicts -%]
+conflicts=([% conflicts %])
+[% END -%]
+url='[% url %]'
+source=('[% source %]')
+md5sums=('[% md5sums %]')
+[% IF sha512sums -%]
+sha512sums=('[% sha512sums %]')
+[% END -%]
+_distdir="[% distdir %]"
+
+build() {
+  ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""                 \
+      PERL_AUTOINSTALL=--skipdeps                            \
+      PERL_MM_OPT="INSTALLDIRS=vendor DESTDIR='$pkgdir'"     \
+      PERL_MB_OPT="--installdirs vendor --destdir '$pkgdir'" \
+      MODULEBUILDRC=/dev/null
+
+    cd "$srcdir/$_distdir"
+[% IF is_makemaker -%]
+    /usr/bin/perl Makefile.PL
+    make
+[% END -%]
+[% IF is_modulebuild -%]
+    /usr/bin/perl Build.PL
+    /usr/bin/perl Build
+[% END -%]
+  )
+}
+
+check() {
+  cd "$srcdir/$_distdir"
+  ( export PERL_MM_USE_DEFAULT=1 PERL5LIB=""
+[% IF is_makemaker -%]
+    make test
+[% END -%]
+[% IF is_modulebuild -%]
+    /usr/bin/perl Build test
+[% END -%]
+  )
+}
+
+package() {
+  cd "$srcdir/$_distdir"
+[% IF is_makemaker -%]
+  make install
+[% END -%]
+[% IF is_modulebuild -%]
+  /usr/bin/perl Build install
+[% END -%]
+
+  find "$pkgdir" -name .packlist -o -name perllocal.pod -delete
+}
+
+# Local Variables:
+# mode: shell-script
+# sh-basic-offset: 2
+# End:
+# vim:set ts=2 sw=2 et:
