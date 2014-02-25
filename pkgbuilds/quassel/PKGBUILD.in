@@ -2,7 +2,7 @@
 # Source: <https://github.com/AlD/archlinux/tree/master/pkgbuilds/quassel>
 
 pkgbase='quassel'
-pkgname=('@PKGNAME@')
+pkgname='@PKGNAME@'
 
 pkgver=0.10.0.beta1.11.g238fb43
 pkgrel=1
