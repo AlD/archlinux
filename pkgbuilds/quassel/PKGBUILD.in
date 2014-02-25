@@ -26,7 +26,7 @@ include(`package_'BUILDING`.in')
 
 pkgver() {
   pushd "${srcdir}/${pkgbase}" > /dev/null
-  git describe --always | sed 's/-/./g;'
+  git describe --always | sed 's/-beta/.0.beta/; s/-/./g;'
   popd > /dev/null
 }
 
