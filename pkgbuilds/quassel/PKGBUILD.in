@@ -4,7 +4,7 @@
 pkgbase='quassel'
 pkgname=('@PKGNAME@')
 
-pkgver=0.10.pre.92.g9d54503
+pkgver=0.10.0.beta1.11.g238fb43
 pkgrel=1
 url='http://quassel-irc.org'
 license=('GPL')
