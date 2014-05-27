@@ -6,7 +6,7 @@ package_quassel-core-git() {
 
   _prepare_build
 
-  pushd "$_builddir" >/dev/null 3
+  pushd "$_builddir" >/dev/null
 
   msg 'Configuring build options...'
   cmake -DWANT_MONO=OFF             \
@@ -16,6 +16,6 @@ package_quassel-core-git() {
 	-DCMAKE_INSTALL_PREFIX=/usr \
 	"$_srcdir"
 
-  popd >/dev/null 3
+  popd >/dev/null
   _build
 }
