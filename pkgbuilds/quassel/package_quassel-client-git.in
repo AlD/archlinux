@@ -2,7 +2,6 @@ pkgdesc='KDE-based distributed IRC client (client only)'
 
 package_quassel-client-git() {
   depends='kdelibs'
-  makedepends=('automoc4' 'cmake')
   provides=('quassel-client')
   conflicts=('quassel-client')
 
