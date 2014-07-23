@@ -1,4 +1,4 @@
-# Contributor: Daniel Albers <daniel@lbe.rs>
+# Maintainer: Daniel Albers <daniel@lbe.rs>
 # Source: <https://github.com/AlD/archlinux/tree/master/pkgbuilds/quassel>
 
 pkgbase='quassel'
