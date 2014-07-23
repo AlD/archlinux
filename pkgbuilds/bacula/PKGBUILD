@@ -3,7 +3,7 @@
 # bacula-fd.service by Christian Hesse <arch@eworm.de>
 
 pkgbase='bacula'
-pkgname=( "${pkgbase}-common" "${pkgbase}-console" "${pkgbase}-fd" "${pkgbase}-bat" "${pkgbase}-sd" "${pkgbase}-dir" "${pkgbase}-dir-sqlite3" "${pkgbase}-dir-mysql" "${pkgbase}-dir-postgresql" )
+pkgname=( "${pkgbase}-common" "${pkgbase}-console" "${pkgbase}-fd" "${pkgbase}-bat" "${pkgbase}-sd" "${pkgbase}-dir" "${pkgbase}-dir-sqlite3" "${pkgbase}-dir-mysql" "${pkgbase}-dir-mariadb" "${pkgbase}-dir-postgresql" )
 pkgver=7.0.4
 pkgrel=1
 arch=(i686 x86_64)
@@ -137,7 +137,7 @@ package_bacula-dir() {
   depends=('bacula-common')
   optdepends=(
     'bacula-dir-sqlite3: SQLite support'
-    'bacula-dir-mysql: MariaDB support'
+    'bacula-dir-mariadb: MariaDB support'
     'bacula-dir-postgresql: PostgreSQL support')
   backup=("etc/${pkgbase}/${pkgname}.conf")
   pushd "${_instdir}"
@@ -180,8 +180,8 @@ package_bacula-dir() {
   cp -adf ${srcdir}/bacula-${pkgver}/scripts/logrotate ${pkgdir}/etc/logrotate.d/bacula
 }
 
-package_bacula-dir-mysql() {
-  pkgdesc='Bacula - A Network Backup Tool (Director - MySQL support)'
+package_bacula-dir-mariadb() {
+  pkgdesc='Bacula - A Network Backup Tool (Director - MariaDB support)'
   depends=('bacula-dir' 'libmariadbclient')
   pushd "${_instdir}"
   
@@ -191,6 +191,12 @@ package_bacula-dir-mysql() {
   for file in etc/bacula/scripts/*mysql*; do
     cp --parents -adf "$file" "${pkgdir}"
   done
+}
+
+package_bacula-dir-mysql() {
+  pkgdesc='Bacula - A Network Backup Tool (transition package)'
+  depends=('bacula-dir-mariadb')
+  pushd "${_instdir}"
 }
 
 package_bacula-dir-postgresql() {
