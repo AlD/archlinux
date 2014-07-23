@@ -1,8 +1,9 @@
 # Maintainer: Daniel Albers <daniel@lbe.rs>
 # bacula-fd.service by Christian Hesse <arch@eworm.de>
 
-pkgbase=bacula
-pkgname=( "${pkgbase}-common" "${pkgbase}-console" "${pkgbase}-fd" "${pkgbase}-bat" )
+pkgbase=bacula-common
+_pkgbase=${pkgbase%-*}
+pkgname=( "${_pkgbase}-common" "${_pkgbase}-console" "${_pkgbase}-fd" "${_pkgbase}-bat" )
 pkgver=7.0.4
 pkgrel=1
 arch=(i686 x86_64)
@@ -11,7 +12,7 @@ url="http://www.bacula.org"
 license=('AGPL3')
 depends=('qt4')
 makedepends=('tcp_wrappers')
-source=("http://downloads.sourceforge.net/sourceforge/${pkgbase}/${pkgbase}-${pkgver}.tar.gz"
+source=("http://downloads.sourceforge.net/sourceforge/${_pkgbase}/${_pkgbase}-${pkgver}.tar.gz"
         '00-qmake4.patch'
         'bacula-fd.service')
 
@@ -25,21 +26,21 @@ sha1sums=('f0684a7b7288b1706128cd74d2f69b2c44bd06ec'
 _instdir="${startdir}/install"
 
 build() {
-    pushd "${srcdir}/${pkgbase}-${pkgver}"
+    pushd "${srcdir}/${_pkgbase}-${pkgver}"
 
     patch -Np3 -i ${srcdir}/00-qmake4.patch || true
 
-    ./configure                              \
-    --enable-bat                             \
-    --enable-client-only                     \
-    --enable-smartalloc                      \
-    --prefix=/usr                            \
-    --sbindir=/usr/bin                       \
-    --sysconfdir=/etc/${pkgbase}             \
-    --with-openssl                           \
-    --with-scriptdir=/etc/${pkgbase}/scripts \
-    --with-systemd=/usr/lib/systemd/system/  \
-    --with-tcp-wrappers                      \
+    ./configure                               \
+    --enable-bat                              \
+    --enable-client-only                      \
+    --enable-smartalloc                       \
+    --prefix=/usr                             \
+    --sbindir=/usr/bin                        \
+    --sysconfdir=/etc/${_pkgbase}             \
+    --with-openssl                            \
+    --with-scriptdir=/etc/${_pkgbase}/scripts \
+    --with-systemd=/usr/lib/systemd/system/   \
+    --with-tcp-wrappers                       \
     --with-x
 
     make DESTDIR="$_instdir" install
@@ -54,8 +55,8 @@ package_bacula-bat() {
   install -D ${_instdir}/etc/bacula/bat.conf ${pkgdir}/etc/bacula/bat.conf
   install -D ${_instdir}/usr/share/man/man1/bat.1.gz ${pkgdir}/usr/share/man/man1/bat.1.gz
 
-  install -D ${srcdir}/${pkgbase}-${pkgver}/scripts/bat.desktop ${pkgdir}/usr/share/applications/bat.desktop
-  install -D ${srcdir}/${pkgbase}-${pkgver}/src/qt-console/images/bat_icon.png ${pkgdir}/usr/share/pixmaps/bat_icon.png
+  install -D ${srcdir}/${_pkgbase}-${pkgver}/scripts/bat.desktop ${pkgdir}/usr/share/applications/bat.desktop
+  install -D ${srcdir}/${_pkgbase}-${pkgver}/src/qt-console/images/bat_icon.png ${pkgdir}/usr/share/pixmaps/bat_icon.png
 }
 
 package_bacula-common() {
