@@ -10,6 +10,9 @@ arch=(i686 x86_64)
 pkgdesc='Bacula - A Network Backup Tool'
 url="http://www.bacula.org"
 license=('AGPL3')
+optdepends=('lzo2: LZO compression for storage daemon'
+	    'openssl: network encryption between daemons'
+           )
 makedepends=('tcp_wrappers' 'sqlite' 'libmariadbclient' 'postgresql-libs' 'qt4')
 source=("http://downloads.sourceforge.net/sourceforge/${pkgbase}/${pkgbase}-${pkgver}.tar.gz"
         '00-qmake4.patch'
@@ -45,7 +48,6 @@ build() {
       --prefix=/usr                            \
       --sbindir=/usr/bin                       \
       --sysconfdir=/etc/${pkgbase}             \
-      --with-openssl                           \
       --with-scriptdir=/etc/${pkgbase}/scripts \
       --with-sqlite3                           \
       --with-mysql                             \
