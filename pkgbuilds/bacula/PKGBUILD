@@ -3,14 +3,14 @@
 # bacula-fd.service by Christian Hesse <arch@eworm.de>
 
 pkgbase='bacula'
-pkgname=( "${pkgbase}-common" "${pkgbase}-console" "${pkgbase}-fd" "${pkgbase}-bat" "${pkgbase}-sd" "${pkgbase}-dir-sqlite3" "${pkgbase}-dir-mysql" "${pkgbase}-dir-postgresql" )
+pkgname=( "${pkgbase}-common" "${pkgbase}-console" "${pkgbase}-fd" "${pkgbase}-bat" "${pkgbase}-sd" "${pkgbase}-dir" "${pkgbase}-dir-sqlite3" "${pkgbase}-dir-mysql" "${pkgbase}-dir-postgresql" )
 pkgver=7.0.4
 pkgrel=1
 arch=(i686 x86_64)
 pkgdesc='Bacula - A Network Backup Tool'
 url="http://www.bacula.org"
 license=('AGPL3')
-makedepends=('tcp_wrappers' 'sqlite3' 'mariadb' 'postgresql' 'qt4')
+makedepends=('tcp_wrappers' 'sqlite' 'libmariadbclient' 'postgresql-libs' 'qt4')
 source=("http://downloads.sourceforge.net/sourceforge/${pkgbase}/${pkgbase}-${pkgver}.tar.gz"
         '00-qmake4.patch'
         'bacula-fd.service'
@@ -19,7 +19,9 @@ source=("http://downloads.sourceforge.net/sourceforge/${pkgbase}/${pkgbase}-${pk
 
 md5sums=('219bde6b1f36625e69102c788bffa70b'
          '9ac88867a9ad3a4fe0486a26d0cdb542'
-         '230754737aefdfb57973457acd3f0697')
+         'c85b7112908d56202fc8f5e7707080bd'
+         'a2845fb6b6c6e6be2f86eacb49b34b8f'
+         '174cb7ec678e727329f26e37098277b1')
 sha1sums=('f0684a7b7288b1706128cd74d2f69b2c44bd06ec'
           '58a60e8af9b4735c564c7223c2bf0c25803927f3'
           '151c6d8b06d8be029a9a50be4d6e64954c88f48c'
@@ -30,13 +32,12 @@ _instdir="${startdir}/install"
 
 prepare() {
     pushd "${srcdir}/${pkgbase}-${pkgver}"
-    export _instdir="${srcdir}/install"
     patch -Np3 -i ${srcdir}/00-qmake4.patch || true
     popd
 }
 
 build() {
-    pushd "${srcdir}/${_pkgbase}-${pkgver}"
+    pushd "${srcdir}/${pkgbase}-${pkgver}"
 
     ./configure                                \
       --enable-bat                             \
@@ -60,9 +61,9 @@ build() {
 }
 
 package_bacula-bat() {
-  pkgdesc='Bacula - A Network Backup Tool (management GUI)'
-  backup=('etc/bacula/bat.conf')
-  depends=('bacula-common' 'qt4')
+  pkgdesc="${pkgdesc} (management GUI)"
+  backup=("etc/${pkgbase}/bat.conf")
+  depends=("${pkgbase}-common" 'qt4')
   pushd "${_instdir}"
 
   cp --parents -a usr/bin/bat ${pkgdir}
@@ -80,9 +81,9 @@ package_bacula-bat() {
 }
 
 package_bacula-fd() {
-  pkgdesc='Bacula - A Network Backup Tool (file daemon)'
+  pkgdesc="${pkgdesc} (file daemon)"
   backup=("etc/${pkgbase}/${pkgname}.conf")
-  depends=('${pkgbase}-common' 'tcp_wrappers')
+  depends=("${pkgbase}-common" 'tcp_wrappers')
 
   pushd "${_instdir}"
 
@@ -98,7 +99,7 @@ package_bacula-fd() {
 }
 
 package_bacula-common() {
-  pkgdesc='Bacula - A Network Backup Tool (common files)'
+  pkgdesc="${pkgdesc} (common files)"
   pushd "${_instdir}"
 
   cp --parents -a etc/bacula/scripts/bacula_config ${pkgdir}
@@ -116,7 +117,7 @@ package_bacula-common() {
 }
 
 package_bacula-console() {
-  pkgdesc='Bacula - A Network Backup Tool (management CLI)'
+  pkgdesc="${pkgdesc} (management CLI)"
   backup=('etc/bacula/bconsole.conf')
   depends=('bacula-common')
   pushd "${_instdir}"
@@ -132,7 +133,7 @@ package_bacula-console() {
 }
 
 package_bacula-dir() {
-  pkgdesc='Bacula - A Network Backup Tool (director)'
+  pkgdesc="${pkgdesc} (director)"
   depends=('bacula-common')
   optdepends=(
     'bacula-dir-sqlite3: SQLite support'
@@ -181,7 +182,7 @@ package_bacula-dir() {
 
 package_bacula-dir-mysql() {
   pkgdesc='Bacula - A Network Backup Tool (Director - MySQL support)'
-  depends=('bacula-dir' 'mariadb')
+  depends=('bacula-dir' 'libmariadbclient')
   pushd "${_instdir}"
   
   cp --parents -adf usr/lib/libbaccats-mysql-${pkgver}.so ${pkgdir}
@@ -194,7 +195,7 @@ package_bacula-dir-mysql() {
 
 package_bacula-dir-postgresql() {
   pkgdesc='Bacula - A Network Backup Tool (director daemon - PostgreSQL support)'
-  depends=('bacula-dir' 'postgresql')
+  depends=('bacula-dir' 'postgresql-libs')
   pushd "${_instdir}"
 
   cp --parents -adf usr/lib/libbaccats-postgresql-${pkgver}.so ${pkgdir}
@@ -207,7 +208,7 @@ package_bacula-dir-postgresql() {
 
 package_bacula-dir-sqlite3() {
   pkgdesc='Bacula - A Network Backup Tool (director daemon - SQLite3 support)'
-  depends=('bacula-dir' 'sqlite3')
+  depends=('bacula-dir' 'sqlite')
   pushd "${_instdir}"
 
   cp --parents -adf usr/lib/libbaccats-sqlite3-${pkgver}.so ${pkgdir}
