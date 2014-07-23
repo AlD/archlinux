@@ -10,7 +10,7 @@ arch=(i686 x86_64)
 pkgdesc='Bacula - A Network Backup Tool'
 url="http://www.bacula.org"
 license=('AGPL3')
-optdepends=('lzo2: LZO compression for storage daemon'
+optdepends=('lzo2: LZO compression for Storage Daemon'
 	    'openssl: network encryption between daemons'
            )
 makedepends=('tcp_wrappers' 'sqlite' 'libmariadbclient' 'postgresql-libs' 'qt4')
@@ -135,7 +135,7 @@ package_bacula-console() {
 }
 
 package_bacula-dir() {
-  pkgdesc="${pkgdesc} (director)"
+  pkgdesc="${pkgdesc} (Director)"
   depends=('bacula-common')
   optdepends=(
     'bacula-dir-sqlite3: SQLite support'
@@ -183,7 +183,7 @@ package_bacula-dir() {
 }
 
 package_bacula-dir-mariadb() {
-  pkgdesc='Bacula - A Network Backup Tool (Director - MariaDB support)'
+  pkgdesc="${pkgdesc} (Director - MariaDB support)"
   depends=('bacula-dir' 'libmariadbclient')
   pushd "${_instdir}"
   
@@ -196,13 +196,13 @@ package_bacula-dir-mariadb() {
 }
 
 package_bacula-dir-mysql() {
-  pkgdesc='Bacula - A Network Backup Tool (transition package)'
+  pkgdesc="${pkgdesc} (transition package)"
   depends=('bacula-dir-mariadb')
   pushd "${_instdir}"
 }
 
 package_bacula-dir-postgresql() {
-  pkgdesc='Bacula - A Network Backup Tool (director daemon - PostgreSQL support)'
+  pkgdesc="${pkgdesc} (Director - PostgreSQL support)"
   depends=('bacula-dir' 'postgresql-libs')
   pushd "${_instdir}"
 
@@ -215,7 +215,7 @@ package_bacula-dir-postgresql() {
 }
 
 package_bacula-dir-sqlite3() {
-  pkgdesc='Bacula - A Network Backup Tool (director daemon - SQLite3 support)'
+  pkgdesc="${pkgdesc} (Director - SQLite3 support)"
   depends=('bacula-dir' 'sqlite')
   pushd "${_instdir}"
 
@@ -228,7 +228,7 @@ package_bacula-dir-sqlite3() {
 }
 
 package_bacula-sd() {
-  pkgdesc='Bacula - A Network Backup Tool (storage daemon)'
+  pkgdesc="${pkgdesc} (Storage Daemon)"
   backup=('etc/bacula/bacula-sd.conf')
   depends=('bacula-common')
   pushd "${_instdir}"
