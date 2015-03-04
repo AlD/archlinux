@@ -232,6 +232,8 @@ package_bacula-dir() {
   cp --parents -a usr/share/man/man8/dbcheck.8.gz ${pkgdir}
   cp --parents -a usr/lib/libbacsql-${pkgver}.so ${pkgdir}
 
+  mkdir -p ${pkgdir}${_workdir}
+
   mkdir -p ${pkgdir}/usr/lib/systemd/system/
   cp -f ${srcdir}/${pkgname}.service ${pkgdir}/usr/lib/systemd/system/
 
@@ -251,11 +253,12 @@ package_bacula-dir() {
 package_bacula-dir-mariadb() {
   pkgdesc="${pkgdesc} (Director - MariaDB support)"
   depends=("${pkgbase}-dir" 'libmariadbclient')
+  conflicts=("bacula-dir-mysql" "bacula-dir-postgresql" "bacula-dir-sqlite3")
   pushd "${_instdir}"
   
   cp --parents -a usr/lib/libbaccats-mysql-${pkgver}.so ${pkgdir}
   cp --parents -a usr/lib/libbaccats-mysql.so ${pkgdir}
-  cp -d usr/lib/libbaccats-mysql.so ${pkgdir}/usr/lib/libbaccats-7.0.3.so
+  cp -d usr/lib/libbaccats-mysql.so ${pkgdir}/usr/lib/libbaccats-${pkgver}.so
   for file in etc/${pkgbase}/scripts/*mysql*; do
     cp --parents -a "$file" "${pkgdir}"
   done
@@ -264,17 +267,19 @@ package_bacula-dir-mariadb() {
 package_bacula-dir-mysql() {
   pkgdesc="${pkgdesc} (transition package)"
   depends=("${pkgbase}-dir-mariadb")
+  conflicts=("bacula-dir-mariadb" "bacula-dir-postgresql" "bacula-dir-sqlite3")
   pushd "${_instdir}"
 }
 
 package_bacula-dir-postgresql() {
   pkgdesc="${pkgdesc} (Director - PostgreSQL support)"
   depends=("${pkgbase}-dir" 'postgresql-libs')
+  conflicts=("bacula-dir-mariadb" "bacula-dir-mysql" "bacula-dir-sqlite3")
   pushd "${_instdir}"
 
   cp --parents -a usr/lib/libbaccats-postgresql-${pkgver}.so ${pkgdir}
   cp --parents -a usr/lib/libbaccats-postgresql.so ${pkgdir}
-  cp -d usr/lib/libbaccats-postgresql.so ${pkgdir}/usr/lib/libbaccats-7.0.3.so
+  cp -d usr/lib/libbaccats-postgresql.so ${pkgdir}/usr/lib/libbaccats-${pkgver}.so
   for file in etc/${pkgbase}/scripts/*postgresql*; do
     cp --parents -a "$file" "${pkgdir}"
   done
@@ -283,11 +288,12 @@ package_bacula-dir-postgresql() {
 package_bacula-dir-sqlite3() {
   pkgdesc="${pkgdesc} (Director - SQLite3 support)"
   depends=("${pkgbase}-dir" 'sqlite')
+  conflicts=("bacula-dir-mariadb" "bacula-dir-mysql" "bacula-dir-postgresql") 
   pushd "${_instdir}"
 
   cp --parents -a usr/lib/libbaccats-sqlite3-${pkgver}.so ${pkgdir}
   cp --parents -a usr/lib/libbaccats-sqlite3.so ${pkgdir}
-  cp -d usr/lib/libbaccats-sqlite3.so ${pkgdir}/usr/lib/libbaccats-7.0.3.so
+  cp -d usr/lib/libbaccats-sqlite3.so ${pkgdir}/usr/lib/libbaccats-${pkgver}.so
   for file in etc/${pkgbase}/scripts/*sqlite3*; do
     cp --parents -a "$file" "${pkgdir}"
   done
@@ -312,6 +318,8 @@ package_bacula-sd() {
   cp --parents -a usr/share/man/man8/bcopy.8.gz ${pkgdir}
   cp --parents -a usr/share/man/man8/bscan.8.gz ${pkgdir}
   cp --parents -a usr/share/man/man8/btape.8.gz ${pkgdir}
+
+  mkdir -p ${pkgdir}${_workdir}
 
   mkdir -p ${pkgdir}/usr/lib/systemd/system/
   cp -f ${srcdir}/${pkgname}.service ${pkgdir}/usr/lib/systemd/system/
