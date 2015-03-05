@@ -4,9 +4,10 @@
 # bacula-fd.service by Christian Hesse <arch@eworm.de>
 
 pkgbase='bacula'
-pkgname=( "${pkgbase}-common" "${pkgbase}-console" "${pkgbase}-fd" "${pkgbase}-bat" "${pkgbase}-sd" "${pkgbase}-dir" "${pkgbase}-dir-sqlite3" "${pkgbase}-dir-mysql" "${pkgbase}-dir-mariadb" "${pkgbase}-dir-postgresql" )
+_dir_backends=("${pkgbase}-dir-sqlite3" "${pkgbase}-dir-mariadb" "${pkgbase}-dir-postgresql")
+pkgname=("${pkgbase}-common" "${pkgbase}-console" "${pkgbase}-fd" "${pkgbase}-bat" "${pkgbase}-sd" "${pkgbase}-dir" ${_dir_backends[@]})
 pkgver=7.0.5
-pkgrel=1
+pkgrel=2
 arch=(i686 x86_64)
 pkgdesc="${pkgbase^} - A Network Backup Tool"
 url="http://www.${pkgbase}.org"
@@ -254,7 +255,7 @@ package_bacula-dir() {
 package_bacula-dir-mariadb() {
   pkgdesc="${pkgdesc} (Director - MariaDB support)"
   depends=("${pkgbase}-dir" 'libmariadbclient')
-  conflicts=("bacula-dir-postgresql" "bacula-dir-sqlite3")
+  conflicts=(${_dir_backends[@]/${pkgname}})
   replaces="${pkgbase}-dir-mysql"
   provides="${pkgbase}-dir-mysql"
   pushd "${_instdir}"
@@ -276,7 +277,7 @@ package_bacula-dir-mysql() {
 package_bacula-dir-postgresql() {
   pkgdesc="${pkgdesc} (Director - PostgreSQL support)"
   depends=("${pkgbase}-dir" 'postgresql-libs')
-  conflicts=("bacula-dir-mariadb" "bacula-dir-sqlite3")
+  conflicts=(${_dir_backends[@]/${pkgname}})
   pushd "${_instdir}"
 
   cp --parents -a usr/lib/libbaccats-postgresql-${pkgver}.so ${pkgdir}
@@ -290,7 +291,7 @@ package_bacula-dir-postgresql() {
 package_bacula-dir-sqlite3() {
   pkgdesc="${pkgdesc} (Director - SQLite3 support)"
   depends=("${pkgbase}-dir" 'sqlite')
-  conflicts=("bacula-dir-mariadb" "bacula-dir-postgresql")
+  conflicts=(${_dir_backends[@]/${pkgname}})
   pushd "${_instdir}"
 
   cp --parents -a usr/lib/libbaccats-sqlite3-${pkgver}.so ${pkgdir}
