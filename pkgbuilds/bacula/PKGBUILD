@@ -15,7 +15,7 @@ license=('AGPL3')
 optdepends=('lzo2: LZO compression for Storage Daemon'
 	    'openssl: network encryption between daemons'
            )
-makedepends=('tcp_wrappers' 'sqlite' 'libmariadbclient' 'postgresql-libs' 'qt4')
+makedepends=( 'sqlite' 'libmariadbclient' 'postgresql-libs' 'qt4')
 source=("http://downloads.sourceforge.net/sourceforge/${pkgbase}/${pkgbase}-${pkgver}.tar.gz"
         '00-qmake4.patch'
        )
@@ -153,7 +153,7 @@ package_bacula-bat() {
 package_bacula-fd() {
   pkgdesc="${pkgdesc} (file daemon)"
   backup=("etc/${pkgbase}/${pkgname}.conf")
-  depends=("${pkgbase}-common" 'tcp_wrappers')
+  depends=("${pkgbase}-common" "tcp_wrappers")
 
   pushd "${_instdir}"
 
