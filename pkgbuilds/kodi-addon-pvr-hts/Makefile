@@ -10,15 +10,14 @@ clean:
 	  PKGBUILD      \
 	  src
 
-upload: .SRCINFO ${PKG}.git
-	cd ${PKG}.git            && \
-	cp ../$< ../PKGBUILD ./  && \
-	git add $< PKGBUILD      && \
-	git commit -m 'bump'     && \
+upload: .${PKG}.git .SRCINFO
+	cd $<                       && \
+	cp -lR ../* ../.SRCINFO ./  && \
+	git commit -am 'bump'       && \
 	git push origin master
 
-%.git:
-	git clone ssh://aur@aur.archlinux.org/$@.git $@
+.%.git:
+	git clone ssh://aur@aur.archlinux.org/$* $@
 
 src:
 	makepkg -do

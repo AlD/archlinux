@@ -8,7 +8,7 @@ define(`HTS_VERSION', `esyscmd(xmllint --xpath "string(/addon/@version)" ADDON_X
 # https://github.com/AlD/archlinux
 
 pkgname=kodi-addon-pvr-hts
-pkgbase=${pkgname}.git
+pkgbase=${pkgname}
 _gitname=GIT_NAME
 pkgver=HTS_VERSION
 _gitver=GIT_VERSION
