@@ -11,10 +11,11 @@ clean:
 	  src
 
 upload: .${PKG}.git .SRCINFO
-	cd $<                       && \
-	cp -lR ../* ../.SRCINFO ./  && \
-	git commit -am 'bump'       && \
+	rm -f .git
+	ln -s $</.git .
+	git commit -am 'bump'
 	git push origin master
+	rm .git
 
 .%.git:
 	git clone ssh://aur@aur.archlinux.org/$* $@
