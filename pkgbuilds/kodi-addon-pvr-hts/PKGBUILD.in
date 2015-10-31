@@ -4,7 +4,7 @@ define(`SRC_DIR', `src/GIT_NAME')dnl
 define(`ADDON_XML', `SRC_DIR/GIT_NAME/addon.xml')dnl
 define(`HTS_VERSION', `esyscmd(xmllint --xpath "string(/addon/@version)" ADDON_XML || echo 0)')dnl
 # Maintainer: Daniel Albers <daniel@lbe.rs>
-# Contributo: dhead666 <myfoolishgames@gmail.com>
+# Contributor: dhead666 <myfoolishgames@gmail.com>
 # https://github.com/AlD/archlinux
 
 pkgname=kodi-addon-pvr-hts
