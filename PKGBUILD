@@ -2,7 +2,7 @@
 
 pkgname=tvheadend
 
-pkgver=4.0.8
+pkgver=4.0.9
 pkgrel=1
 pkgdesc="TV streaming server for Linux"
 arch=('i686' 'x86_64' 'arm' 'armv6h' 'armv7h')
@@ -18,7 +18,7 @@ install=tvheadend.install
 
 source=("https://github.com/tvheadend/tvheadend/archive/v$pkgver.tar.gz" 
 	'tvheadend.service')
-sha512sums=('b506dfbb5a4bbb44e772953cbd9bbdd8fdd3d5d22e13977ea5b186eb61a421c32196ab92d2f851907e48880b1fd2d543cbee95ba0004e4040fa0064156775e59'
+sha512sums=('ba8c6edcef126c6a260a9251b0948747074061c8f16fb20f03b250c6698645172c9396530b7fa44bf9cf4d8305fcece08c672c812ba6c48211edfbb2691fb58e'
             '456084a08ce0e02a4a32d67a8a7937d45695cb4b08b29297ead8a7e9d2a92963335f653f56d4c9346f4b2729868408fafbcd4caebf9fc8cdaa90171514cf4a57')
  
 prepare() {
