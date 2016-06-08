@@ -14,7 +14,6 @@ pkgrel=1
 url='http://quassel-irc.org'
 license=('GPL')
 arch=('i686' 'x86_64' 'arm')
-depends=('qt4')
 makedepends=('git' 'cmake' 'automoc4')
 source=(
   'git+https://github.com/quassel/quassel.git'
@@ -77,6 +76,7 @@ package_quassel-client-git() {
 
 package_quassel-client-light-git() {
   pkgdesc='Qt-based distributed IRC client (client only)'
+  depends=('qt5-base')
   provides=('quassel-client')
   conflicts=('quassel-client')
 
@@ -90,6 +90,7 @@ package_quassel-client-light-git() {
         -DWANT_QTCLIENT=ON          \
         -DWITH_OPENSSL=ON           \
         -DWITH_KDE=OFF              \
+        -DUSE_QT5=ON                \
         -DWITH_WEBKIT=OFF           \
 	-DCMAKE_INSTALL_PREFIX=/usr \
 	"$_srcdir"
@@ -100,6 +101,7 @@ package_quassel-client-light-git() {
 
 package_quassel-core-git() {
   pkgdesc='KDE/Qt-based distributed IRC client (core only)'
+  depends=('qt5-base' 'qt5-script' 'qca-qt5')
   provides=('quassel-core')
   conflicts=('quassel-core')
 
@@ -114,6 +116,7 @@ package_quassel-core-git() {
         -DWITH_OPENSSL=ON           \
 	-DCMAKE_INSTALL_PREFIX=/usr \
 	"$_srcdir"
+        -DUSE_QT5=ON                \
 
   popd >/dev/null
   _build
@@ -143,6 +146,7 @@ package_quassel-git() {
 
 package_quassel-light-git() {
   pkgdesc='Qt-based IRC client (monolithic version)'
+  depends=('qt5-base' 'qt5-script' 'qca-qt5')
   _prepare_build
 
   pushd "$_builddir" >/dev/null
@@ -153,6 +157,7 @@ package_quassel-light-git() {
         -DWANT_QTCLIENT=OFF         \
         -DWITH_OPENSSL=ON           \
         -DWITH_KDE=OFF              \
+        -DUSE_QT5=ON                \
         -DWITH_WEBKIT=OFF           \
 	-DCMAKE_INSTALL_PREFIX=/usr \
 	"$_srcdir"
