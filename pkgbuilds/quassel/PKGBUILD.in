@@ -51,7 +51,7 @@ _build() {
 }
 
 package_quassel-client-git() {
-  depends='kdelibs'
+  depends=('kdebase-lib')
   pkgdesc='KDE-based distributed IRC client (client only)'
   provides=('quassel-client')
   conflicts=('quassel-client')
@@ -66,6 +66,7 @@ package_quassel-client-git() {
         -DWANT_QTCLIENT=ON          \
         -DWITH_OPENSSL=ON           \
         -DWITH_KDE=ON               \
+        -DUSE_QT5=ON                \
         -DWITH_WEBKIT=ON            \
 	-DCMAKE_INSTALL_PREFIX=/usr \
 	"$_srcdir"
@@ -124,7 +125,7 @@ package_quassel-core-git() {
 
 package_quassel-git() {
   pkgdesc='KDE-based IRC client (monolithic version)'
-  depends='kdelibs'
+  depends=('kdebase-lib')
 
   _prepare_build
 
@@ -136,6 +137,7 @@ package_quassel-git() {
         -DWANT_QTCLIENT=OFF         \
         -DWITH_OPENSSL=ON           \
         -DWITH_KDE=ON               \
+        -DUSE_QT5=ON                \
         -DWITH_WEBKIT=ON            \
 	-DCMAKE_INSTALL_PREFIX=/usr \
 	"$_srcdir"
