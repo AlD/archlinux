@@ -4,12 +4,12 @@
 pkgbase='quassel'
 pkgname=("${pkgbase}-git"
          "${pkgbase}-light-git"
-	 "${pkgbase}-client-git"
-	 "${pkgbase}-client-light-git"
-	 "${pkgbase}-core-git"
-	)
+         "${pkgbase}-client-git"
+         "${pkgbase}-client-light-git"
+         "${pkgbase}-core-git"
+        )
 
-pkgver=
+pkgver=0
 pkgrel=1
 url='http://quassel-irc.org'
 license=('GPL')
@@ -68,8 +68,8 @@ package_quassel-client-git() {
         -DWITH_KDE=ON               \
         -DUSE_QT5=ON                \
         -DWITH_WEBKIT=ON            \
-	-DCMAKE_INSTALL_PREFIX=/usr \
-	"$_srcdir"
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        "$_srcdir"
 
   popd >/dev/null
   _build
@@ -93,8 +93,8 @@ package_quassel-client-light-git() {
         -DWITH_KDE=OFF              \
         -DUSE_QT5=ON                \
         -DWITH_WEBKIT=OFF           \
-	-DCMAKE_INSTALL_PREFIX=/usr \
-	"$_srcdir"
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        "$_srcdir"
 
   popd >/dev/null
   _build
@@ -115,9 +115,9 @@ package_quassel-core-git() {
         -DWANT_CORE=ON              \
         -DWANT_QTCLIENT=OFF         \
         -DWITH_OPENSSL=ON           \
-	-DCMAKE_INSTALL_PREFIX=/usr \
-	"$_srcdir"
+        -DCMAKE_INSTALL_PREFIX=/usr \
         -DUSE_QT5=ON                \
+        "$_srcdir"
 
   popd >/dev/null
   _build
@@ -139,8 +139,8 @@ package_quassel-git() {
         -DWITH_KDE=ON               \
         -DUSE_QT5=ON                \
         -DWITH_WEBKIT=ON            \
-	-DCMAKE_INSTALL_PREFIX=/usr \
-	"$_srcdir"
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        "$_srcdir"
 
   popd >/dev/null
   _build
@@ -161,8 +161,8 @@ package_quassel-light-git() {
         -DWITH_KDE=OFF              \
         -DUSE_QT5=ON                \
         -DWITH_WEBKIT=OFF           \
-	-DCMAKE_INSTALL_PREFIX=/usr \
-	"$_srcdir"
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        "$_srcdir"
 
   popd >/dev/null
   _build
