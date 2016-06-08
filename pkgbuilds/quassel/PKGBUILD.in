@@ -64,7 +64,7 @@ package_quassel-client-git() {
   cmake -DWANT_MONO=OFF             \
         -DWANT_CORE=OFF             \
         -DWANT_QTCLIENT=ON          \
-        -DWITH_OPENSSL=ON           \
+        -DHAVE_SSL=ON               \
         -DWITH_KDE=ON               \
         -DUSE_QT5=ON                \
         -DWITH_WEBKIT=ON            \
@@ -89,7 +89,7 @@ package_quassel-client-light-git() {
   cmake -DWANT_MONO=OFF             \
         -DWANT_CORE=OFF             \
         -DWANT_QTCLIENT=ON          \
-        -DWITH_OPENSSL=ON           \
+        -DHAVE_SSL=ON               \
         -DWITH_KDE=OFF              \
         -DUSE_QT5=ON                \
         -DWITH_WEBKIT=OFF           \
@@ -114,7 +114,7 @@ package_quassel-core-git() {
   cmake -DWANT_MONO=OFF             \
         -DWANT_CORE=ON              \
         -DWANT_QTCLIENT=OFF         \
-        -DWITH_OPENSSL=ON           \
+        -DHAVE_SSL=ON               \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DUSE_QT5=ON                \
         "$_srcdir"
@@ -135,7 +135,7 @@ package_quassel-git() {
   cmake -DWANT_MONO=ON              \
         -DWANT_CORE=OFF             \
         -DWANT_QTCLIENT=OFF         \
-        -DWITH_OPENSSL=ON           \
+        -DHAVE_SSL=ON               \
         -DWITH_KDE=ON               \
         -DUSE_QT5=ON                \
         -DWITH_WEBKIT=ON            \
@@ -157,7 +157,7 @@ package_quassel-light-git() {
   cmake -DWANT_MONO=ON              \
         -DWANT_CORE=OFF             \
         -DWANT_QTCLIENT=OFF         \
-        -DWITH_OPENSSL=ON           \
+        -DHAVE_SSL=ON               \
         -DWITH_KDE=OFF              \
         -DUSE_QT5=ON                \
         -DWITH_WEBKIT=OFF           \
