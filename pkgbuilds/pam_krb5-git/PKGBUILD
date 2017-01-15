@@ -11,8 +11,8 @@ url="https://fedorahosted.org/pam_krb5/"
 license=("LGPL")
 depends=("pam" "krb5")
 makedepends=("gettext" "autoconf")
-provides=("pam-krb5")
-conflicts=("pam-krb5")
+provides=("pam-krb5" "pam_krb5")
+conflicts=("pam-krb5" "pam_krb5")
 source=("git://git.fedorahosted.org/${_snapshot}.git")
 md5sums=("SKIP")
 
