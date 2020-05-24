@@ -1,0 +1,18 @@
+pkgbase = libreelec-dvb-firmware-git
+	pkgdesc = DVB firmware from LibreELEC project (git)
+	pkgver = 147.82f1b52
+	pkgrel = 1
+	url = https://github.com/LibreELEC/dvb-firmware
+	arch = any
+	license = GPL3
+	makedepends = git
+	makedepends = linux-firmware
+	provides = libreelec-dvb-firmware
+	conflicts = libreelec-dvb-firmware
+	conflicts = openelec-dvb-firmware
+	replaces = openelec-dvb-firmware
+	source = git+https://github.com/LibreELEC/dvb-firmware.git
+	md5sums = SKIP
+
+pkgname = libreelec-dvb-firmware-git
+
