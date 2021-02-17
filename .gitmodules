@@ -1,0 +1,3 @@
+[submodule "bitcoin-cash"]
+	path = pkgbuilds/bitcoin-cash
+	url = https://aur.archlinux.org/bitcoin-cash.git/
